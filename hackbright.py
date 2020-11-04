@@ -74,8 +74,17 @@ def get_project_by_title(title):
 def get_grade_by_github_title(github, title):
     """Print grade student received for a project."""
     
-    
+    QUERY = """
+        SELECT grade
+        FROM grades
+        WHERE student_github = :github
+            AND project_title = :title
+        """
+    db_cursor = db.session.execute(QUERY, {'github': githun, 'title': title})
 
+    row = db_cursor.fecthone()
+
+    print(f"Student {github} in project {title} received grade of {row[0]}")
 
 def assign_grade(github, title, grade):
     """Assign a student a grade on an assignment and print a confirmation."""
