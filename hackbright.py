@@ -42,6 +42,7 @@ def make_new_student(first_name, last_name, github):
     Given a first name, last name, and GitHub account, add student to the
     database and print a confirmation message.
     """
+
     QUERY = """
     INSERT INTO students (first_name, last_name, github)
         VALUES (:first_name, :last_name, :github)
@@ -56,12 +57,24 @@ def make_new_student(first_name, last_name, github):
 
 def get_project_by_title(title):
     """Given a project title, print information about the project."""
-    pass
+    
+    QUERY = """
+        SELECT title, description, max_grade
+        FROM projects
+        WHERE title = :title
+        """
+    
+    db_cursor = db.session.execute(QUERY, {'title': title})
+
+    row = db_cursor.fecthone()
+
+    print(f"Title: {row[0]}\nDescription: {row[1]}\nMax Grade: {row[2]}")
 
 
 def get_grade_by_github_title(github, title):
     """Print grade student received for a project."""
-    pass
+    
+    
 
 
 def assign_grade(github, title, grade):
